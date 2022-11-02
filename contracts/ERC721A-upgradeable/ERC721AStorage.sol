@@ -44,9 +44,48 @@ library ERC721AStorage {
         mapping(uint256 => ERC721AStorage.TokenApprovalRef) _tokenApprovals;
         // Mapping from owner to operator approvals
         mapping(address => mapping(address => bool)) _operatorApprovals;
+        uint256 _maxBatchSizePreSale;
+        // Maximum number of mints allowed by transaction or wallet in publicSale
+        uint256 _maxBatchSizePublicSale;
+        // Maximum number of nfts that can be minted
+        uint256 _collectionSize;
+        // Maximum number of ntfs that can be minted in presale.
+        uint256 _amountForPreSale;
+        // Maximum number of ntfs that can be minted in public sale.
+        uint256 _amountForPublicSale;
+        // Maximum number of ntfs that can be minted in free.
+        uint256 _amountForFreeSale;
+        // Price by nft in public sale.
+        uint256 _pricePublicSale;
+        // Price by nft in presale.
+        uint256 _pricePreSale;
+        // Items sold in presale
+        uint256 _preSaleCurrentIndex;
+        // Items sold in  public sale
+        uint256 _publicSaleCurrentIndex;
+        uint256 _freeSaleCurrentIndex;
+        // Determine if public sale is active
+        bool _publicSaleActive;
+        // Determine if pre-sale is active
+        bool _preSaleActive;
+        // false if base uri is hidden
+        bool _reveled;
+        // Save base URI
+        string _baseUri;
+        // Save hidden base URI
+        string _hiddenBaseUri;
+        // Sabe sufix base uri
+        string _uriSuffix;
+        // Status of Merkle Tree verification
+        bool _merkleTree;
+        // Merkle Tree root hash
+        bytes32 _merkleRoot;
+        mapping(address => uint) _tokensBoughtPreSale;
+        mapping(address => uint) _tokensBoughtPublicSale;
     }
 
-    bytes32 internal constant STORAGE_SLOT = keccak256('ERC721A.contracts.storage.ERC721A');
+    bytes32 internal constant STORAGE_SLOT =
+        keccak256("ERC721A.contracts.storage.ERC721A");
 
     function layout() internal pure returns (Layout storage l) {
         bytes32 slot = STORAGE_SLOT;
